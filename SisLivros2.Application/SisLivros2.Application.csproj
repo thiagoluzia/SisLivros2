@@ -10,4 +10,8 @@
     <ProjectReference Include="..\SisLivros2.Infrastructure\SisLivros2.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+  </ItemGroup>
+
 </Project>

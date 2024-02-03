@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SisLivros2.Application.DTOs.InputModels;
 using SisLivros2.Application.DTOs.OutputModels;
 using SisLivros2.Application.Services.Interfaces;
@@ -30,10 +31,22 @@ namespace SisLivros2.API.Controllers
     
             return Ok(livro);
         }
-
+  
         [HttpPost]
         public IActionResult Post([FromBody] CadastrarLivroInputModel inputNModel)
         {
+            #region Uso individual de validação sem o Filter
+            //if (!ModelState.IsValid)
+            //{
+            //    var messages = ModelState
+            //        .SelectMany(ms => ms.Value.Errors)
+            //        .Select(e =>e.ErrorMessage)
+            //        .ToList();
+
+            //    return BadRequest(messages);
+            //}
+            #endregion
+
             var id = _service.Post(inputNModel);
 
             return CreatedAtAction(nameof(GetById), new {id = id}, inputNModel);
