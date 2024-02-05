@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SisLivros2.Application.DTOs.InputModels;
-using SisLivros2.Application.DTOs.OutputModels;
 using SisLivros2.Application.Services.Interfaces;
 
 namespace SisLivros2.API.Controllers
@@ -55,6 +53,18 @@ namespace SisLivros2.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Put([FromBody] AtualizarLivroInputModel inputModel, int id)
         {
+            var livro = _service.GetById(id);
+
+            if (inputModel.Id != id)
+            {
+                return BadRequest("O Id do livro não pode ser diferente do id do livro que deseja atualizar.");
+            }
+
+            if(livro != null)
+            {
+                return NotFound("O livro que você está tentando atualizar, não foi encontrado.");
+            }
+
             _service.Put(inputModel);
 
             return NoContent();
@@ -63,6 +73,13 @@ namespace SisLivros2.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            var livro = _service.GetById(id);
+
+            if(livro == null)
+            {
+                return NotFound("O livro que você está tentando deletar, não foi encontrado.");
+            }
+            
             _service.Delete(id);
 
             return NoContent();
