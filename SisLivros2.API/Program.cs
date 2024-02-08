@@ -21,6 +21,7 @@ namespace SisLivros2.API
            
             //Injeção de dependencia dos serviços
             builder.Services.AddScoped<ILivroService, LivroService>();
+            builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 
             // Adicionando configurações de Filtros e Validações
