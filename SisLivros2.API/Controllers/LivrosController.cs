@@ -26,6 +26,11 @@ namespace SisLivros2.API.Controllers
         public IActionResult GetById(int id)
         {
             var livro = _service.GetById(id);
+
+            if(livro == null)
+            {
+                return NotFound("Usuário não encontrado.");
+            }
     
             return Ok(livro);
         }

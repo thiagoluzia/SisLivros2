@@ -28,8 +28,9 @@ namespace SisLivros2.API
             builder.Services
             .AddControllers(options => options.Filters.Add(typeof(ValidationFilter))) // configurando os filtros
             .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CadatrarLivroInputModelValidation>())
-            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AtualizarLivroInputModelValidation>());// os demais não precisam serem incluidos na config, pois ao carregar o assembly eles ja vem
-
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AtualizarLivroInputModelValidation>())// os demais não precisam serem incluidos na config, pois ao carregar o assembly eles ja vem
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CadastrarUsuarioInputModelValidation>())
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AtualizarUsuarioInputModelValidation>());
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

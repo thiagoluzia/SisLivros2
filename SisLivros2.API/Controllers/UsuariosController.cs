@@ -17,31 +17,69 @@ namespace SisLivros2.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok();
+            var usuarios = _service.GetAll();
+
+            return Ok(usuarios);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok();
+            var usuario = _service.GetById(id);
+
+            if (usuario == null)
+            {
+                return NotFound("Usuário não encontrado.");
+            }
+
+            return Ok(usuario);
         }
 
         [HttpPost]
         public IActionResult Post(CadastrarUsuarioInputModel inputModel)
         {
-            return Ok();
+            var id = _service.Post(inputModel);
+
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+
+            return CreatedAtAction(nameof(GetById),new { id }, inputModel);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(AtualizarUsuarioInputModel inputModel)
+        public IActionResult Put(AtualizarUsuarioInputModel inputModel, int id)
         {
-            return Ok();
+            if(inputModel.Id != id)
+            {
+                return BadRequest("O Id do usuário não pode ser diferente do id do usuário que deseja atualizar.");
+            }
+
+            var usuario = _service.GetById(id);
+
+            if (usuario == null)
+            {
+                return NotFound("O usuário que você está tentando atualizar, não foi encontrado.");
+            }
+
+            _service.Put(inputModel);
+
+            return NoContent();
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            return Ok();
+            var usuarioOutputModel = _service.GetById(id);
+            if(usuarioOutputModel == null)
+            {
+                return NotFound("O usuário que você está tentando excluir, não foi encontrado.");
+            }
+
+            _service.Delete(id);
+
+            return NoContent();
         }
     }
 }
