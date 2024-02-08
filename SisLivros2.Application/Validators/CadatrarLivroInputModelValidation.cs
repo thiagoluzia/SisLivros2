@@ -10,11 +10,11 @@ namespace SisLivros2.Application.Validators
 
             RuleFor(x => x.Titulo)
                 .NotEmpty().WithMessage("O Título não pode ser vazio.")
-                .Length(5, 300).WithMessage("O Título deve ter entre 5 e 30 caracteres.");
+                .Length(5, 300).WithMessage("O Título deve ter entre 5 e 300 caracteres.");
 
             RuleFor(x => x.Autor)
                 .NotEmpty().WithMessage("O nome do autor não pode ser vazio.")
-                .Length(10, 100).WithMessage("O nome do autor deve ter entre 20 e 100 caracteres.");
+                .Length(5, 100).WithMessage("O nome do autor deve ter entre 5 e 100 caracteres.");
 
             RuleFor(x => x.ISBN)
                 .NotEmpty().WithMessage("O ISBN do livro não pode ser vazio.")

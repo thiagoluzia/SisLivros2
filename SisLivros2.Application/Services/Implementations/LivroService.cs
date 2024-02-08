@@ -1,15 +1,10 @@
-﻿using SisLivros2.Application.DTOs.InputModels;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using SisLivros2.Application.DTOs.InputModels;
 using SisLivros2.Application.DTOs.OutputModels;
 using SisLivros2.Application.Services.Interfaces;
-using SisLivros2.Infrastructure.Persistence;
 using SisLivros2.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.SqlClient;
+using SisLivros2.Infrastructure.Persistence;
 using System.Data;
 
 
@@ -161,7 +156,11 @@ namespace SisLivros2.Application.Services.Implementations
 
             try
             {
-                var livro = _context.Livros.SingleOrDefault(x => x.Id == inputModel.Id);
+                var livro = new Livro(
+                    inputModel.Titulo, 
+                    inputModel.Autor, 
+                    inputModel.ISBN, 
+                    inputModel.AnoPublicacao);
 
                 livro.Atualizar(inputModel.Titulo, inputModel.Autor, inputModel.ISBN, inputModel.AnoPublicacao);
 

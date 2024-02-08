@@ -2,7 +2,10 @@
 {
     public abstract class BaseEntity
     {
-        public BaseEntity(){}
+        public BaseEntity()
+        {
+            Id = 0;
+        }
 
         public int Id { get; private set; }
     }

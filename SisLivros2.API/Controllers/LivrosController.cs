@@ -53,14 +53,14 @@ namespace SisLivros2.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Put([FromBody] AtualizarLivroInputModel inputModel, int id)
         {
-            var livro = _service.GetById(id);
-
             if (inputModel.Id != id)
             {
                 return BadRequest("O Id do livro não pode ser diferente do id do livro que deseja atualizar.");
             }
 
-            if(livro != null)
+            var livro = _service.GetById(id);
+
+            if (livro == null)
             {
                 return NotFound("O livro que você está tentando atualizar, não foi encontrado.");
             }
