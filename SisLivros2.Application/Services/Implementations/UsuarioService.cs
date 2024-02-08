@@ -88,6 +88,11 @@ namespace SisLivros2.Application.Services.Implementations
             try
             {
                 var usuario = _context.Usuarios.SingleOrDefault(x => x.Id == id);
+                
+                if(usuario == null)
+                {
+                    return null;
+                }
 
                 var usuarioOutputModel = new UsuarioOutputModel(usuario.Id, usuario.Nome, usuario.Email);
                 return usuarioOutputModel;

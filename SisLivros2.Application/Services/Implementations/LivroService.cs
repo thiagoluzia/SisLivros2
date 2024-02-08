@@ -90,6 +90,11 @@ namespace SisLivros2.Application.Services.Implementations
             {
                 var livro = _context.Livros.SingleOrDefault(x => x.Id == id);
 
+                if(livro == null)
+                {
+                    return null;
+                }
+
                 var livroOutputModel = new LivroOutputModel
                 (
                     livro.Id,

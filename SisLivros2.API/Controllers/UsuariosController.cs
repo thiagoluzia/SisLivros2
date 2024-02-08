@@ -36,7 +36,7 @@ namespace SisLivros2.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(CadastrarUsuarioInputModel inputModel)
+        public IActionResult Post([FromBody]CadastrarUsuarioInputModel inputModel)
         {
             var id = _service.Post(inputModel);
 
@@ -49,7 +49,7 @@ namespace SisLivros2.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(AtualizarUsuarioInputModel inputModel, int id)
+        public IActionResult Put([FromBody]AtualizarUsuarioInputModel inputModel, int id)
         {
             if(inputModel.Id != id)
             {
