@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using SisLivros2.API.Filters;
+using SisLivros2.Application.DTOs.InputModels;
 using SisLivros2.Application.Services.Implementations;
 using SisLivros2.Application.Services.Interfaces;
 using SisLivros2.Application.Validators;
@@ -22,6 +23,7 @@ namespace SisLivros2.API
             //Injeção de dependencia dos serviços
             builder.Services.AddScoped<ILivroService, LivroService>();
             builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+            builder.Services.AddScoped<IEmprestimoService, EmprestimoService>();
 
 
             // Adicionando configurações de Filtros e Validações
@@ -30,7 +32,12 @@ namespace SisLivros2.API
             .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CadatrarLivroInputModelValidation>())
             .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AtualizarLivroInputModelValidation>())// os demais não precisam serem incluidos na config, pois ao carregar o assembly eles ja vem
             .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CadastrarUsuarioInputModelValidation>())
-            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AtualizarUsuarioInputModelValidation>());
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AtualizarUsuarioInputModelValidation>())
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CadastrarEmprestimoInputModelValidation>())
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AtualizarEmprestimoInputModel>());
+            
+            
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

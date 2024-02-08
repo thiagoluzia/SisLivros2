@@ -8,6 +8,7 @@ namespace SisLivros2.Infrastructure.Persistence
     {
         public DbSet<Livro> Livros { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Emprestimo> Emprestimos { get; set; }
 
         public SisLivros2DbContext(DbContextOptions<SisLivros2DbContext> options) : base(options)
         {
