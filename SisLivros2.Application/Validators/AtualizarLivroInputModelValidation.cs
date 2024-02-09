@@ -29,7 +29,7 @@ namespace SisLivros2.Application.Validators
             RuleFor(x => x.AnoPublicacao)
                 .NotNull().WithMessage("O ano de publicação não pode ser vazio.")
                 .Must(LivroMetodosValidator.ValidarAnoPublicacao).WithMessage("O ano da publicação do livro não deve ser maior que ano atual.")
-                .Must(LivroMetodosValidator.ValiadaAnoInferior).WithMessage("O Ano de publicação deve ser superior a 1900.");
+                .Must(LivroMetodosValidator.ValiadarAnoInferior).WithMessage("O Ano de publicação deve ser superior a 1900.");
         }
 
     }

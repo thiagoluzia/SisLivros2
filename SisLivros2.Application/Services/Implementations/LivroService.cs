@@ -64,6 +64,11 @@ namespace SisLivros2.Application.Services.Implementations
             {
                 var livros = _context.Livros;
 
+                if (!livros.Any())
+                {
+                    return new List<LivroOutputModel>();
+                }
+
                 var livrosOutputModel = livros
                     .Select(x => new LivroOutputModel(x.Id, x.Titulo, x.Autor, x.ISBN, x.AnoPublicacao))
                     .ToList();

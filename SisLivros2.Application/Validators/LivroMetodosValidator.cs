@@ -22,7 +22,7 @@ namespace SisLivros2.Application.Validators
             //return (ano > DateTime.Now.Year) ? false : true;
             return ano <= DateTime.Now.Year; //ano 
         }
-        public static bool ValiadaAnoInferior(int ano)
+        public static bool ValiadarAnoInferior(int ano)
         {
             return ano > 1900;
         }

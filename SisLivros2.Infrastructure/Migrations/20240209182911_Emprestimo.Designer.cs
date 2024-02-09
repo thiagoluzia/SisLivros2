@@ -3,17 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SisLivros2.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace SisLivros2.Infrastructure.Persistence.Migrations
+namespace SisLivros2.Infrastructure.Migrations
 {
     [DbContext(typeof(SisLivros2DbContext))]
-    partial class SisLivros2DbContextModelSnapshot : ModelSnapshot
+    [Migration("20240209182911_Emprestimo")]
+    partial class Emprestimo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

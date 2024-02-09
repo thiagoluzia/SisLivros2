@@ -17,27 +17,63 @@ namespace SisLivros2.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok();
+            var emprestimos = _service.GetAll();
+
+            if(emprestimos == null)
+            {
+                return NotFound($"Nenhum {nameof(emprestimos)} encontrado.");
+            }
+
+            return Ok(emprestimos);
+            
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok();
+            var emprestimo = _service.GetById(id);
+
+            if(emprestimo == null)
+            {
+                return NotFound($"{nameof(emprestimo)} não encontrado");
+            }
+
+            return Ok(emprestimo);
         }
 
         [HttpPost]
-        public IActionResult Emprestar([FromBody] CadastrarEmprestimoInputModel inputModel)
+        public IActionResult Post([FromBody] CadastrarEmprestimoInputModel inputModel)
         {
-            return Ok();
+            var id = _service.PostEmprestar(inputModel);
+
+            if(id == 0)
+            {
+                return BadRequest();
+            }
+
+            return CreatedAtAction(nameof(GetById), new { id }, inputModel);
         }
 
         [HttpPut("{id}")]
         public IActionResult Devolver([FromBody] AtualizarEmprestimoInputModel inputModel, int id)
         {
-            return Ok();
+
+            if(inputModel.Id != id)
+            {
+                return BadRequest("O Id do emprestimo não pode ser diferente do id do emprestimo que deseja atualizar.");
+            }
+
+            var emprestimo = _service.GetById(id);
+
+            if(emprestimo == null)
+            {
+                return NotFound($"O {nameof(emprestimo)} que você está tentando atualizar, não foi encontrado.");
+            }
+
+            _service.PutDevolver(inputModel);
+
+            return NoContent();
         }
 
-       
     }
 }

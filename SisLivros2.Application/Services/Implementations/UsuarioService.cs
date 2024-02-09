@@ -63,6 +63,11 @@ namespace SisLivros2.Application.Services.Implementations
             {
                 var usuarios = _context.Usuarios;
 
+                if (!usuarios.Any())
+                {
+                    return new List<UsuarioOutputModel>();
+                }
+
                 var usuarioOutputModel = usuarios
                     .Select(x => new UsuarioOutputModel(x.Id,x.Nome, x.Email))
                     .ToList();

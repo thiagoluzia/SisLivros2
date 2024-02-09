@@ -19,6 +19,11 @@ namespace SisLivros2.API.Controllers
         {
             var usuarios = _service.GetAll();
 
+            if (usuarios == null)
+            {
+                return NotFound($"Nenhum {nameof(usuarios)} encontrado.");
+            }
+
             return Ok(usuarios);
         }
 
@@ -29,7 +34,7 @@ namespace SisLivros2.API.Controllers
 
             if (usuario == null)
             {
-                return NotFound("Usuário não encontrado.");
+                return NotFound($"{nameof(usuario)} não encontrado.");
             }
 
             return Ok(usuario);
@@ -60,7 +65,7 @@ namespace SisLivros2.API.Controllers
 
             if (usuario == null)
             {
-                return NotFound("O usuário que você está tentando atualizar, não foi encontrado.");
+                return NotFound($"O {nameof(usuario)} que você está tentando atualizar, não foi encontrado.");
             }
 
             _service.Put(inputModel);
@@ -71,10 +76,10 @@ namespace SisLivros2.API.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var usuarioOutputModel = _service.GetById(id);
-            if(usuarioOutputModel == null)
+            var usuario = _service.GetById(id);
+            if(usuario == null)
             {
-                return NotFound("O usuário que você está tentando excluir, não foi encontrado.");
+                return NotFound($"O {nameof(usuario)} que você está tentando excluir, não foi encontrado.");
             }
 
             _service.Delete(id);

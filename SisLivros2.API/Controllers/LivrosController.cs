@@ -18,7 +18,11 @@ namespace SisLivros2.API.Controllers
         public IActionResult GetAll()
         {
             var livros = _service.GetAll();
-  
+            if(livros == null)
+            {
+                return NotFound();
+            }
+
             return Ok(livros);
         }
 
