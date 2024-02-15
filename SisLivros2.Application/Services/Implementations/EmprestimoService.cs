@@ -23,13 +23,13 @@ namespace SisLivros2.Application.Services.Implementations
             {
                 var emprestimo = _context.Emprestimos;
 
-                if(!emprestimo.Any())
+                if (!emprestimo.Any())
                 {
                     return new List<EmprestimoOutputModelModel>();
                 }
 
                 var emprestimoOutputModelModel = emprestimo
-                    .Select(x => new EmprestimoOutputModelModel(x.Id, x.Usuario.Nome, x.Usuario.Nome, x.DataDevolucao, x.DataEmprestimo, x.Devolvido ?? DateTime.MinValue, x.Situacao))
+                    .Select(x => new EmprestimoOutputModelModel(x.Id, x.Livro.Titulo, x.Usuario.Nome, x.DataDevolucao, x.DataEmprestimo, x.Devolvido ?? DateTime.MinValue, x.Situacao, x.IdLivro, x.IdUsuario))
                     .ToList();
 
                 return emprestimoOutputModelModel;
@@ -64,27 +64,29 @@ namespace SisLivros2.Application.Services.Implementations
 
                 var emprestimoOutputModelModel = new EmprestimoOutputModelModel
                     (
-                        emprestimo.Id, 
-                        emprestimo.Livro.Titulo, 
-                        emprestimo.Usuario.Nome, 
+                        emprestimo.Id,
+                        emprestimo.Livro.Titulo,
+                        emprestimo.Usuario.Nome,              
                         emprestimo.DataDevolucao,
                         emprestimo.DataEmprestimo,
                         emprestimo.Devolvido ?? DateTime.MinValue,
-                        emprestimo.Situacao
+                        emprestimo.Situacao,
+                        emprestimo.IdLivro,
+                        emprestimo.IdUsuario
                     );
 
                 return emprestimoOutputModelModel;
 
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 var mensagemError = "Erro ao selecionar o emprestimo solicitado.";
                 throw new InvalidOperationException(mensagemError, ex);
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
                 var mensagemError = "Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.";
-                throw new InvalidOperationException (mensagemError, ex);
+                throw new InvalidOperationException(mensagemError, ex);
             }
         }
 
@@ -127,15 +129,9 @@ namespace SisLivros2.Application.Services.Implementations
         {
             try
             {
-                var emprestimo = new Emprestimo
-                    (
-                        inputModel.IdLivro,
-                        inputModel.IdUsuario,
-                        inputModel.DataDevolucao
-                    );
-
+                var emprestimo = _context.Emprestimos.SingleOrDefault(x => x.Id == inputModel.Id);
+                    
                 emprestimo.Devolver(inputModel.IdLivro, inputModel.IdUsuario);
-
                 _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException ex)
@@ -147,7 +143,7 @@ namespace SisLivros2.Application.Services.Implementations
             {
                 var mensagemError = "Erro ao tentar salvar.";
 
-                if(ex.InnerException is SqlException sqlException)
+                if (ex.InnerException is SqlException sqlException)
                 {
                     mensagemError = $"Erro SQL {sqlException.Number} : {sqlException.Message}";
                 }
