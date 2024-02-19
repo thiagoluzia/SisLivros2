@@ -33,5 +33,9 @@ namespace SisLivros2.Core.Entities
             Situacao = EEmprestimos.Devolvido;
         }
 
+        public void AtualizarAtraso()
+        {
+            Situacao = EEmprestimos.Atrasado;
+        }
     }
 }

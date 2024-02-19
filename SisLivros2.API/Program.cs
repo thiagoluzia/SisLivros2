@@ -18,13 +18,13 @@ namespace SisLivros2.API
 
             // Contexto
             var connection = builder.Configuration.GetConnectionString("SisLivros2cs");
-            builder.Services.AddDbContext<SisLivros2DbContext>(options => options.UseSqlServer(connection));
-           
+            builder.Services.AddDbContext<SisLivros2DbContext>(options => options.UseSqlServer(connection), ServiceLifetime.Singleton);
+
             //Injeção de dependencia dos serviços
             builder.Services.AddScoped<ILivroService, LivroService>();
             builder.Services.AddScoped<IUsuarioService, UsuarioService>();
             builder.Services.AddScoped<IEmprestimoService, EmprestimoService>();
-
+            
 
             // Adicionando configurações de Filtros e Validações
             builder.Services
@@ -42,6 +42,10 @@ namespace SisLivros2.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //worker
+            builder.Services.AddHostedService<WorkerVerificarAtrasoLivro>();
+            //builder.Services.AddScoped<SisLivros2DbContext>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -50,7 +54,7 @@ namespace SisLivros2.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
