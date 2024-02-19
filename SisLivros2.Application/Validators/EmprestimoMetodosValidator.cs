@@ -7,7 +7,7 @@
             //return (dataDevolucao > DateTime.Now) ? false : true;
             //return dataDevolucao <= DateTime.Now; 
 
-            if(dataDevolucao <= DateTime.Now)
+            if(dataDevolucao > DateTime.Now)
             {
                 return true;
             }

@@ -94,6 +94,12 @@ namespace SisLivros2.Application.Services.Implementations
         {
             try
             {
+                if (Emprestado(inputModel.IdLivro))
+                {
+                    var mesagemError = "O livro não esta disponivel para emprestimo.";
+                    throw new InvalidOperationException(mesagemError);
+                }
+
                 var emprestimo = new Emprestimo(inputModel.IdLivro, inputModel.IdUsuario, inputModel.DataDevolucao);
 
                 _context.Emprestimos.Add(emprestimo);
@@ -155,6 +161,18 @@ namespace SisLivros2.Application.Services.Implementations
                 var mensagemError = "Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.";
                 throw new InvalidOperationException(mensagemError, ex);
             }
+        }
+    
+        private bool Emprestado(int idLivro)
+        {
+            var livro = _context.Emprestimos.SingleOrDefault(x => x.IdLivro == idLivro && (x.Situacao != Core.Enums.EEmprestimos.EmAndamento || x.Situacao != Core.Enums.EEmprestimos.Atrasado));
+
+            if(livro == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

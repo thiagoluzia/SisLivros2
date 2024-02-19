@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SisLivros2.API", "SisLivros2.API\SisLivros2.API.csproj", "{E313B09E-71B1-458B-8394-F772085DF000}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SisLivros2.API", "SisLivros2.API\SisLivros2.API.csproj", "{E313B09E-71B1-458B-8394-F772085DF000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SisLivros2.Application", "SisLivros2.Application\SisLivros2.Application.csproj", "{59EA1FBD-2B77-4E7F-BD58-F967255BA39B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SisLivros2.Application", "SisLivros2.Application\SisLivros2.Application.csproj", "{59EA1FBD-2B77-4E7F-BD58-F967255BA39B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SisLivros2.Infrastructure", "SisLivros2.Infrastructure\SisLivros2.Infrastructure.csproj", "{0CD39015-91EC-444C-91B8-2031F1131311}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SisLivros2.Infrastructure", "SisLivros2.Infrastructure\SisLivros2.Infrastructure.csproj", "{0CD39015-91EC-444C-91B8-2031F1131311}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SisLivros2.Core", "SisLivros2.Core\SisLivros2.Core.csproj", "{7416855C-DCD5-4E41-869A-C7DB49ED1A93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SisLivros2.Core", "SisLivros2.Core\SisLivros2.Core.csproj", "{7416855C-DCD5-4E41-869A-C7DB49ED1A93}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{84A96809-2F63-430A-B3CD-59EB7885318E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{55C430F1-4F0E-49AA-B11C-C1B5A1601ACA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +40,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E313B09E-71B1-458B-8394-F772085DF000} = {84A96809-2F63-430A-B3CD-59EB7885318E}
+		{59EA1FBD-2B77-4E7F-BD58-F967255BA39B} = {84A96809-2F63-430A-B3CD-59EB7885318E}
+		{0CD39015-91EC-444C-91B8-2031F1131311} = {84A96809-2F63-430A-B3CD-59EB7885318E}
+		{7416855C-DCD5-4E41-869A-C7DB49ED1A93} = {84A96809-2F63-430A-B3CD-59EB7885318E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22A19FCD-F954-445F-8F50-30D0615587B2}
