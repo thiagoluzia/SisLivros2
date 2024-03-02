@@ -66,7 +66,7 @@ namespace SisLivros2.Application.Services.Implementations
                     (
                         emprestimo.Id,
                         emprestimo.Livro.Titulo,
-                        emprestimo.Usuario.Nome,              
+                        emprestimo.Usuario.Nome,
                         emprestimo.DataDevolucao,
                         emprestimo.DataEmprestimo,
                         emprestimo.Devolvido ?? DateTime.MinValue,
@@ -94,9 +94,18 @@ namespace SisLivros2.Application.Services.Implementations
         {
             try
             {
-                if (Emprestado(inputModel.IdLivro))
+                //Validando com metodo da classe
+                if (!Emprestado(inputModel.IdLivro))
                 {
                     var mesagemError = "O livro não esta disponivel para emprestimo.";
+                    throw new InvalidOperationException(mesagemError);
+                }
+                var usuario = _context.Usuarios.FirstOrDefault(x => x.Id == inputModel.IdUsuario);
+
+                //Validando na controller
+                if (usuario == null)
+                {
+                    var mesagemError = "Usuário não encontrado.";
                     throw new InvalidOperationException(mesagemError);
                 }
 
@@ -136,7 +145,7 @@ namespace SisLivros2.Application.Services.Implementations
             try
             {
                 var emprestimo = _context.Emprestimos.SingleOrDefault(x => x.Id == inputModel.Id);
-                    
+
                 emprestimo.Devolver(inputModel.IdLivro, inputModel.IdUsuario);
                 _context.SaveChanges();
             }
@@ -162,17 +171,18 @@ namespace SisLivros2.Application.Services.Implementations
                 throw new InvalidOperationException(mensagemError, ex);
             }
         }
-    
+
         private bool Emprestado(int idLivro)
         {
             var livro = _context.Emprestimos.SingleOrDefault(x => x.IdLivro == idLivro && (x.Situacao != Core.Enums.EEmprestimos.EmAndamento || x.Situacao != Core.Enums.EEmprestimos.Atrasado));
 
-            if(livro == null)
+            if (livro.Devolvido == null)
             {
                 return false;
             }
 
             return true;
         }
+
     }
 }

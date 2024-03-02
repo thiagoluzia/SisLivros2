@@ -33,7 +33,7 @@ namespace SisLivros2.API.Controllers
 
             if(livro == null)
             {
-                return NotFound("Usuário não encontrado.");
+                return NotFound("Livro não encontrado.");
             }
     
             return Ok(livro);
